@@ -1,21 +1,27 @@
+const MINUTES_IN_DAY = 24 * 60;
 export class Clock {
-  constructor(hour: unknown, minute?: unknown) {
-    throw new Error('Remove this statement and implement this function')
+  private time: number = 0;
+
+  constructor(hour = 0, minute = 0) {
+    const time = (hour * 60 + minute) % MINUTES_IN_DAY;
+    this.time = time < 0 ? time + MINUTES_IN_DAY : time;
   }
 
-  public toString(): unknown {
-    throw new Error('Remove this statement and implement this function')
+  public toString(): string {
+    return `${String(Math.trunc(this.time / 60)).padStart(2, "0")}:${String(
+      Math.trunc(this.time % 60)
+    ).padStart(2, "0")}`;
   }
 
-  public plus(minutes: unknown): Clock {
-    throw new Error('Remove this statement and implement this function')
+  public plus(minutes: number): Clock {
+    return new Clock(0, this.time + minutes);
   }
 
-  public minus(minutes: unknown): Clock {
-    throw new Error('Remove this statement and implement this function')
+  public minus(minutes: number): Clock {
+    return new Clock(0, this.time - minutes);
   }
 
-  public equals(other: unknown): unknown {
-    throw new Error('Remove this statement and implement this function')
+  public equals(other: Clock): boolean {
+    return other.time === this.time;
   }
 }
